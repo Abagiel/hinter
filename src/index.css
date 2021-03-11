@@ -1,0 +1,19 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+.hinter_hint_block {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	min-width: 100px;
+	padding: 5px 10px;
+
+	background: hsla(0, 0%, 0%, 0.8);
+	border-radius: 5px;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+}
