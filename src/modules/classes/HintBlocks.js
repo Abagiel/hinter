@@ -1,5 +1,5 @@
 import AnimationBlock from './AnimationBlock.js';
-import { $, stopPropagation, objectToCSS } from '../../utils/functions.js';
+import { $, stopPropagation, objectToCSS, getEventOptions, eventCondition } from '../../utils/functions.js';
 
 export class HintBlock {
 	constructor(option) {
@@ -15,25 +15,32 @@ export class HintBlock {
 		this.showEvent = null;
 	}
 
-	show = (e) => {
+	show = (value, e) => {
 		stopPropagation(e);
 
 		if (this.isVisible) return;
+		if (value && !eventCondition(e, value)) return;
 
 		this.root.append(this.hint);
-		this.animation.runStart(this.hint);
 		this.isVisible = true;
 		++this.count;
+		this.animation.runStart(this.hint);
 
 		this.addTrigger(this.hideOption, 'hide');
 	}
 
-	hide = (e) => {
+	hide = (value, e) => {
 		stopPropagation(e);
+
+		if (value && !eventCondition(e, value)) return;
 
 		this.animation.runEnd(this.hint, () => this.hint.remove());
 		this.isVisible = false;
 		
+		this.removeEvents();
+	}
+
+	removeEvents() {
 		if (this.hideEvent) this.hideEvent();
 		if (this.showEvent && this.count >= this.limit) {
 			this.showEvent();
@@ -41,19 +48,14 @@ export class HintBlock {
 	}
 
 	addTrigger(type, method) {
-		type = isNaN(+type) ? type : +type;
-
 		if (typeof type === 'number') {
 			this.actionByTime(this[method], type);
 		}
-		if (typeof type === 'string') {
-			const ev = type.split(':')[0];
-			const selector = type.split(':')[1];
 
-			this.addEvent(ev, selector, this[method], method);
-		}
 		if (typeof type === 'object') {
-			this.addEvent(type[0], type[1], this[method], method);
+			const options = getEventOptions(type);
+
+			this.addEvent(options, this[method], method);
 		}
 	}
 
@@ -61,10 +63,10 @@ export class HintBlock {
 		setTimeout(fn, time);
 	}
 
-	addEvent(ev, selector, fn, type) {
+	addEvent({event, selector, value}, fn, type) {
 		const target = document.querySelector(selector);
 
-		this[`${type}Event`] = () => target.removeEventListener(ev, fn);
-		target.addEventListener(ev, fn);
+		this[`${type}Event`] = () => target.removeEventListener(event, fn.bind(this, value));
+		target.addEventListener(event, fn.bind(this, value));
 	}
 }

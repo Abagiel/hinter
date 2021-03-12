@@ -6,7 +6,17 @@ export default class AnimationBlock {
 		this.end = endClass;
 	}
 
+	shouldCancelAnimation(callback) {
+		if (!this.start) {
+			if (callback) callback();
+
+			return;
+		}
+	}
+
 	runStart(target) {
+		this.shouldCancelAnimation();
+
 		target.style.animationDirection = 'normal';
 		target.classList.add(this.start);
 
@@ -14,6 +24,8 @@ export default class AnimationBlock {
 	}
 
 	runEnd(target, callback) {
+		this.shouldCancelAnimation(callback);
+
 		if (this.end === this.start) {
 			target.style.animationDirection = 'reverse';
 		}
