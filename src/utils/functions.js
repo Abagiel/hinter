@@ -2,6 +2,10 @@ export function $(selector) {
 	return document.querySelector(selector);
 }
 
+export function delClass(target, clas) {
+	target.classList.remove(clas);
+}
+
 export function stopPropagation(e) {
 	if (e) e.stopPropagation();
 }

@@ -8,6 +8,8 @@ export default class ElementHint extends HintBlock {
 			count: element.dataset.hinterCount,
 			hide: element.dataset.hinterHide,
 			show: element.dataset.hinterShow,
+			start: element.dataset.hinterStart,
+			end: element.dataset.hinterEnd || element.dataset.hinterStart,
 			hint: element
 		});
 		

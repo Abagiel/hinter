@@ -1,3 +1,4 @@
+import AnimationBlock from './AnimationBlock.js';
 import { $, stopPropagation, objectToCSS } from '../../utils/functions.js';
 
 export class HintBlock {
@@ -5,6 +6,7 @@ export class HintBlock {
 		this.root = option.root;
 		this.hideOption = option.hide;
 		this.showOption = option.show;
+		this.animation = new AnimationBlock(option.start, option.end);
 		this.hint = option.hint;
 		this.limit = option.count || Infinity;
 		this.count = 0;
@@ -19,6 +21,7 @@ export class HintBlock {
 		if (this.isVisible) return;
 
 		this.root.append(this.hint);
+		this.animation.runStart(this.hint);
 		this.isVisible = true;
 		++this.count;
 
@@ -28,7 +31,7 @@ export class HintBlock {
 	hide = (e) => {
 		stopPropagation(e);
 
-		this.hint.remove();
+		this.animation.runEnd(this.hint, () => this.hint.remove());
 		this.isVisible = false;
 		
 		if (this.hideEvent) this.hideEvent();
@@ -62,7 +65,6 @@ export class HintBlock {
 		const target = document.querySelector(selector);
 
 		this[`${type}Event`] = () => target.removeEventListener(ev, fn);
-
 		target.addEventListener(ev, fn);
 	}
 }

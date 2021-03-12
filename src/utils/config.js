@@ -1,4 +1,9 @@
 export const hints = [
 	document.querySelectorAll('.hint')[0],
-	document.querySelectorAll('.hint')[1]
+	{
+		show: ['click', 'body'],
+		hide: ['click', 'body'],
+		start: 'scale',
+		text: 'Hello, Animation!!!'
+	}
 ];

@@ -7,7 +7,9 @@ export default class DefaultHint extends HintBlock {
 			root: $(option.root) || document.body,
 			count: option.count,
 			show: option.show,
-			hide: option.hide
+			hide: option.hide,
+			start: option.start,
+			end: option.end || option.start
 		});
 
 		this.text = option.text;
