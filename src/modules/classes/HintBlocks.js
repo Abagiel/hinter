@@ -65,8 +65,9 @@ export class HintBlock {
 
 	addEvent({event, selector, value}, fn, type) {
 		const target = document.querySelector(selector);
+		const func = (e) => fn(value, e);
 
-		this[`${type}Event`] = () => target.removeEventListener(event, fn.bind(this, value));
-		target.addEventListener(event, fn.bind(this, value));
+		this[`${type}Event`] = () => target.removeEventListener(event, func);
+		target.addEventListener(event, func);
 	}
 }
