@@ -1,12 +1,11 @@
 import AnimationBlock from './AnimationBlock.js';
-import { $, stopPropagation, objectToCSS, getEventOptions, eventCondition } from '../../utils/functions.js';
+import { stopPropagation, objectToCSS, getEventOptions, eventCondition } from '../../utils/functions.js';
 
 export class HintBlock {
 	constructor(option) {
 		this.root = option.root;
 		this.hideOption = option.hide;
 		this.showOption = option.show;
-		this.animation = new AnimationBlock(option.start, option.end);
 		this.limit = option.count || Infinity;
 		this.hint = option.hint;
 
@@ -14,6 +13,8 @@ export class HintBlock {
 		this.isVisible = false;
 		this.hideEvent = null;
 		this.showEvent = null;
+
+		this.animation = new AnimationBlock(option.start, option.end);
 	}
 
 	show = (value, e) => {

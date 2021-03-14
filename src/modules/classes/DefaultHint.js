@@ -1,16 +1,10 @@
 import { HintBlock } from './HintBlock.js';
-import { $, objectToCSS } from '../../utils/functions.js';
+import { objectToCSS, createElement } from '../../utils/functions.js';
+import { getDefaultInstructions } from '../../utils/converters.js';
 
 export default class DefaultHint extends HintBlock {
 	constructor(option) {
-		super({
-			root: $(option.root) || document.body,
-			count: option.count,
-			show: option.show,
-			hide: option.hide,
-			start: option.start,
-			end: option.end || option.start
-		});
+		super(getDefaultInstructions(option));
 
 		this.text = option.text;
 		this.styles = option.styles;
@@ -24,9 +18,7 @@ export default class DefaultHint extends HintBlock {
 	}
 
 	createHintBlock() {
-		this.hint = document.createElement('div');
-		this.hint.textContent = this.text;
-		this.hint.className = 'hinter_hint_block';
+		this.hint = createElement('div', this.text);
 		this.hint.setAttribute('style', objectToCSS(this.styles));
 	}
 }

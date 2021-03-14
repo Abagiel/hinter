@@ -38,5 +38,11 @@ export const hints = [
 				}
 			}
 		]
+	},
+	{
+		root: '.con-2',
+		show: ['click', '.cl-2'],
+		hide: ['click', '.hint'],
+		text: 'Hevo-rimu'
 	}
 ];

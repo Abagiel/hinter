@@ -1,13 +1,12 @@
+import { DEFAULT_CLASS } from './constants.js';
+
+// HTML FUNCTIONS
 export function $(selector) {
 	return document.querySelector(selector);
 }
 
 export function delClass(target, clas) {
 	target.classList.remove(clas);
-}
-
-export function stopPropagation(e) {
-	if (e) e.stopPropagation();
 }
 
 export function objectToCSS(obj = {}) {
@@ -17,20 +16,7 @@ export function objectToCSS(obj = {}) {
 		.join(';');
 }
 
-function camelToDash(s) {
-	return s.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
-}
-
-function moveDataFromChildToParent(target) {
-	const childData = target.firstElementChild.dataset;
-
-	Object
-	  .entries(childData)
-	  .forEach(d => target.setAttribute('data-' + camelToDash(d[0]), d[1]));
-
-}
-
-export function createElement(selector, text = '', classes = '') {
+export function createElement(selector, text = '', classes = DEFAULT_CLASS) {
 	const el = document.createElement(selector);
 	el.classList.add(classes);
 	el.textContent = text;
@@ -47,10 +33,19 @@ export function wrapper(selector, html) {
 	return container;
 }
 
-export function strToArr(str, point) {
-	if (+str) return +str;
+function moveDataFromChildToParent(target) {
+	const childData = target.firstElementChild.dataset;
 
-	return str.split(point);
+	Object
+	  .entries(childData)
+	  .forEach(d => target.setAttribute('data-' + camelToDash(d[0]), d[1]));
+
+}
+
+// EVENTS FUNCTIONS
+
+export function stopPropagation(e) {
+	if (e) e.stopPropagation();
 }
 
 export function getEventOptions(data) {
@@ -95,4 +90,16 @@ const handlers = {
 
 		return false;
 	}
+}
+
+// OTHER FUNCTIONS
+
+function camelToDash(s) {
+	return s.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+}
+
+export function strToArr(str, point) {
+	if (+str) return +str;
+
+	return str.split(point);
 }
