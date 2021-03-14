@@ -7,8 +7,9 @@ export class HintBlock {
 		this.hideOption = option.hide;
 		this.showOption = option.show;
 		this.animation = new AnimationBlock(option.start, option.end);
-		this.hint = option.hint;
 		this.limit = option.count || Infinity;
+		this.hint = option.hint;
+
 		this.count = 0;
 		this.isVisible = false;
 		this.hideEvent = null;
@@ -34,10 +35,15 @@ export class HintBlock {
 
 		if (value && !eventCondition(e, value)) return;
 
-		this.animation.runEnd(this.hint, () => this.hint.remove());
+		this.animation.runEnd(this.hint, this.removeHintBlock);
 		this.isVisible = false;
 		
 		this.removeEvents();
+	}
+
+	removeHintBlock = () => {
+		this.hint.remove();
+		this.hideEnd && this.hideEnd();
 	}
 
 	removeEvents() {

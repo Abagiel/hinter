@@ -10,6 +10,7 @@
 	left: 50%;
 	min-width: 100px;
 	padding: 5px 10px;
+	transform: translate(-50% , -50%);
 
 	background: hsla(0, 0%, 0%, 0.8);
 	border-radius: 5px;

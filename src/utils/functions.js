@@ -30,8 +30,16 @@ function moveDataFromChildToParent(target) {
 
 }
 
+export function createElement(selector, text = '', classes = '') {
+	const el = document.createElement(selector);
+	el.classList.add(classes);
+	el.textContent = text;
+
+	return el; 
+}
+
 export function wrapper(selector, html) {
-	const container = document.createElement(selector);
+	const container = createElement(selector);
 	container.insertAdjacentHTML('beforeend', html);
 
 	moveDataFromChildToParent(container);
@@ -40,6 +48,8 @@ export function wrapper(selector, html) {
 }
 
 export function strToArr(str, point) {
+	if (+str) return +str;
+
 	return str.split(point);
 }
 

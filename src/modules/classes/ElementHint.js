@@ -1,4 +1,4 @@
-import { HintBlock } from './HintBlocks.js';
+import { HintBlock } from './HintBlock.js';
 import { $, strToArr } from '../../utils/functions.js';
 
 export default class ElementHint extends HintBlock {
@@ -17,7 +17,16 @@ export default class ElementHint extends HintBlock {
 	}
 
 	init() {
-		this.hint.remove();
+		this.removeBlockFromHTML();
+		this.addDefaultClass();
 		this.addTrigger(this.showOption, 'show');
+	}
+
+	addDefaultClass() {
+		!this.hint.className && this.hint.classList.add('hinter_hint_block');
+	}
+
+	removeBlockFromHTML() {
+		this.hint.remove();
 	}
 }

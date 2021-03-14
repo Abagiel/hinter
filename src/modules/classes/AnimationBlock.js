@@ -20,7 +20,7 @@ export default class AnimationBlock {
 		target.style.animationDirection = 'normal';
 		target.classList.add(this.start);
 
-		this.observer(target, 'end');
+		this.observer(target, 'start');
 	}
 
 	runEnd(target, callback) {
@@ -36,9 +36,7 @@ export default class AnimationBlock {
 	}
 
 	observer(target, type, fn) {
-		const ev = `animation${type}`;
-
-		target[`on${ev}`] = e => {
+		target.onanimationend = e => {
 			delClass(target, this[type]);
 
 			if (fn) fn();

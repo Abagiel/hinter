@@ -1,4 +1,4 @@
-import { HintBlock } from './HintBlocks.js';
+import { HintBlock } from './HintBlock.js';
 import { $, objectToCSS } from '../../utils/functions.js';
 
 export default class DefaultHint extends HintBlock {

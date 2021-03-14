@@ -1,32 +1,42 @@
-export const hints = [
-	document.querySelectorAll('.hint')[0],
-	// {
-	// 	show: ['click', 'body'],
-	// 	hide: ['keydown', 'body'],
-	// 	start: 'scale',
-	// 	text: 'Hello, Animation!!!'
-	// },
-	// {
-	// 	show: ['keydown', 'body', 'key=o'],
-	// 	hide: ['keydown', 'body', 'key=c'],
-	// 	start: 'moveright',
-	// 	text: 'First message',
-	// 	styles: {
-	// 		top: '10px',
-	// 		left: 0
-	// 	}
-	// },
-	// {
-	// 	show: 2000,
-	// 	hide: ['keyup', 'body', 'key=Enter'],
-	// 	start: 'moveright',
-	// 	text: 'Second message',
-	// 	styles: {
-	// 		top: '50px',
-	// 		left: 0
-	// 	}
-	// }
-];
+const elements = Array.from(document.querySelectorAll('[data-hinter-show]'));
 
-// ['event', 'target', {x: 100-500, y: -100, key: 'K'}]
-// event:target:x100-500:y0-50:key
+export const hints = [
+	...elements,
+	{
+		root: '.con-1',
+		count: 2,
+		show: ['click', '.cl-5'],
+		hide: 1000,
+		text: 'Hello, Link',
+		start: 'fade',
+		styles: {
+					background: 'blue',
+					left: '10px',
+					transform: 'none'
+				},
+		links: [
+			{
+				root: '.con-2',
+				hide: ['click', '.cl-1'],
+				text: 'I am secodn',
+				start: 'moveright',
+				styles: {
+					background: 'tomato',
+					left: '20px',
+					transform: 'none'
+				}
+			},
+			{
+				root: '.con-3',
+				hide: ['keydown', 'body', 'key=o'],
+				text: 'Previous one is baka!',
+				start: 'fade',
+				styles: {
+					background: 'green',
+					top: '10px',
+					transform: 'none'
+				}
+			}
+		]
+	}
+];
